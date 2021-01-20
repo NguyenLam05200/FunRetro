@@ -179,7 +179,7 @@ router.get('/confirmation/:tokenQuery', async function (req, res) {
     // Verify and save the user
     await userModel.verifyOK(user._id);
     user.isVerified = true;
-    res.status(200).redirect(`/account/login?notification=2`);
+    res.status(200).redirect(`/admin/account/login?notification=2`);
 });
 
 //chua xu li gui lai ma xac nhan tai khoan!

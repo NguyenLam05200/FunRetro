@@ -11,6 +11,7 @@ module.exports = function(app){
         //res.locals.lcIsAuthenticated = !req.user.anonymous ;
       
         res.locals.lcAuthUser = req.user;
+        //console.log(res.locals.lcAuthUser);
         res.locals.productsImageDir = process.env.PRODUCTS_IMAGE_DIR;
         res.locals.profilesImageDir = process.env.PROFILES_IMAGE_DIR;
 

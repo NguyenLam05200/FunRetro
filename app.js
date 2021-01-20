@@ -50,6 +50,11 @@ app.get('/admin', function (req, res) {
         layout: "mainAdmin"
     });
 })
+app.get('/admin/contact', function (req, res) {
+    res.render('contactAdmin',{
+        layout: "mainAdmin"
+    });
+})
 
 //view About - User
 app.get('/user/about', function (req, res) {
@@ -87,13 +92,14 @@ app.use('/admin/products',restrict, require('./routes/product.route'));
 
 
 // Phần khách hàng:
+const restrictUser = require('./middlewares/auth.mdw')
 // đăng kí, đăng nhập, profile của Người dùng
 app.use('/user/account', require('./routes/user/account.route'));
-app.use('/user/dashboard', require('./routes/user/dashboard.route'));
-app.use('/user/teams', require('./routes/user/team.route'));
-app.use('/user/analytics', require('./routes/user/analytics.route'));
-app.use('/user/integration', require('./routes/user/integration.route'));
-app.use('/user/subscription', require('./routes/user/billing.route'));
+app.use('/user/dashboard', restrictUser, require('./routes/user/dashboard.route'));
+app.use('/user/teams', restrictUser, require('./routes/user/team.route'));
+app.use('/user/analytics', restrictUser, require('./routes/user/analytics.route'));
+app.use('/user/integration', restrictUser, require('./routes/user/integration.route'));
+app.use('/user/subscription', restrictUser, require('./routes/user/billing.route'));
 //--khách hàng--
 
 //Phần quản trị viên:

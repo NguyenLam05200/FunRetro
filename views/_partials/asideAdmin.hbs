@@ -15,13 +15,14 @@
   <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-      <a href="/admin/account/profile" class="d-block">
-        <div class="image">
+      {{#if lcAuthUser.isAdmin}}
+      
+      <div class="image">
           <img
             {{#if lcAuthUser.avatar}}
-            src="/public/images/admin/profile/{{lcAuthUser._id}}.{{lcAuthUser.avatar}}"
-            {{else}}
-            src="/public/images/default.png"
+              src="/public/images/admin/profile/{{lcAuthUser._id}}.{{lcAuthUser.avatar}}"
+              {{else}}
+              src="/public/images/default.png"
             {{/if}}
             class="img-circle elevation-2"
             alt="User Image"
@@ -32,7 +33,23 @@
             {{lcAuthUser.username}}
           </a>
         </div>
-      </a>
+        </a>
+      {{else}}
+      <a href="/admin/account/login" class="d-block">
+      <div class="image">
+          <img
+            src="/public/images/default.png"
+            class="img-circle elevation-2"
+            alt="User Image"
+          />
+        </div>
+        <div class="info">
+          <a href="/admin/account/login" class="d-block">
+          </a>
+        </div>
+        </a>
+      {{/if}}
+      
     </div>
     <!-- SidebarSearch Form -->
     <div class="form-inline">

@@ -143,5 +143,15 @@ module.exports = {
                 //"permission": parseInt(entity.permission)
             }
         });
+    },
+    findOneByEmail: async (email) => {
+        const userCollection = db().collection(nameCollection);
+        const rows = await userCollection.findOne({
+            email: email
+        })
+        if (rows == null) {
+            return null;
+        }
+        return rows;
     }
 }

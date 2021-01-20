@@ -6,9 +6,9 @@ const adminService = require('../models/user.model');
 
 passport.use(new LocalStrategy(
     function (username, password, done) {
-        userService.checkCredential(username, password).then((user) =>{
-            if(user == false){
-                adminService.checkCredential(username, password).then((user) =>{
+        userService.checkCredential(username, password).then((user) => {
+            if (user == false) {
+                adminService.checkCredential(username, password).then((user) => {
                     if (!user) {
                         return done(null, false, {
                             message: 'Incorrect username or password'
@@ -20,30 +20,41 @@ passport.use(new LocalStrategy(
                 return done(null, user);
             }
         });
-        
+
     }
 ));
 
 passport.serializeUser(function (user, done) {
-    done(null, user._id);
+    done(null, user.email);
 });
 
 passport.deserializeUser(function (id, done) {
-    userService.getUser(id).then((user) => {
-        if(user == null){
-            adminService.getUser(id).then((admin) => {
+    userService.findOneByEmail(id).then((user) => {
+        if (user == null) {
+            adminService.findOneByEmail(id).then((admin) => {
                 delete admin.password_hash;
                 admin.isAdmin = true;
                 done(null, admin);
                 return;
             })
         } else {
-            delete user.password_hash;
-            user.isUser = true;
-            done(null, user);
-            return;
+            adminService.findOneByEmail(id).then((admin) => {
+                if (admin != null) {
+                    delete admin.password_hash;
+                    admin.isAdmin = true;
+                    admin.isUser = true;
+                    admin.isBoth = true;
+                    done(null, admin);
+                    return;
+                } else {
+                    delete user.password_hash;
+                    user.isUser = true;
+                    done(null, user);
+                    return;
+                }
+            })
         }
-        
+
     });
 });
 

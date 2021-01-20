@@ -43,7 +43,7 @@ const restrict = require('../../middlewares/auth.mdw')
 //use npm passport
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: './login?err=1',
+    failureRedirect: '/user/login?err=1',
     failureFlash: false
 }))
 router.post('/logout', function (req, res) {
