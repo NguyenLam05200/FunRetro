@@ -1,0 +1,115 @@
+{{#section 'title'}}
+Products
+{{/section}}
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    
+    <a href="/admin/products/" role="button">
+      <h4>
+      Products
+    </h4>
+    </a>
+    <a class="btn btn-outline-success" href="/admin/products/add" role="button">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      Add Product
+    </a>
+  </div>
+  {{#if this.empty}}
+    <div class="card-body">
+      <p class="card-text">
+        Không có dữ liệu.
+      </p>
+    </div>
+  {{else}}
+    <div class="card-body">
+      <div class="row">
+        {{#each this.products}}
+          <div class="col-sm-4 mb-3">
+            <div class="card h-100">
+              <img
+                src="{{process.env.PRODUCTS_IMAGE_DIR}}/{{imgDir}}"
+                alt="{{imgName}}"
+                title="{{imgName}}:{{price}}"
+                class="card-img-top"
+              />
+              <div class="card-body ">
+                <h6 class="card-title">
+                  {{imgName}}
+                </h6>
+                <span class="money ">
+                  <span class="line card-title text-danger float-left">
+                      {{format_number price}}
+                  </span>
+                  <h6 class="card-title text-danger float-right">
+                    {{format_number salePrice}}
+                  </h6>
+                </span>
+              </div>
+              <div class="card-footer d-flex justify-content-between">
+                <a
+                  class="btn btn-sm btn-outline-primary"
+                  href="javascript:;"
+                  role="button"
+                >
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                  Details
+                </a>
+                <a
+                name=""
+                id=""
+                class="btn btn-primary btn-sm"
+                href="/admin/products/edit?id={{this._id}}"
+                role="button"
+                title="Edit Product"
+              >
+                <i class="fa fa-pencil" aria-hidden="true">
+                  Edit
+                </i>
+              </a>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+      <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+          <li class="page-item {{#unless can_go_prev}}disabled{{/unless}}">
+            <a class="page-link" href="?{{prevPageQueryString}}" aria-label="Previous">
+              <span aria-hidden="true">
+                «
+              </span>
+            </a>
+          </li>
+          {{#each this.page_items }}
+          {{#if isActive}}
+            <li class="page-item active" aria-current="page">
+            <span class="page-link">
+              {{value}}
+              <span class="sr-only">(current)</span>
+            </span>
+          </li>
+          {{else}}
+            <li class="page-item {{#if isDisabled}}disabled{{/if}}">
+            <a class="page-link" href="?page={{value}}">
+              {{value}}
+            </a>
+          </li>
+          {{/if}}
+          {{/each}}
+          
+          
+          <li class="page-item {{#unless can_go_next}}disabled{{/unless}}">
+            <a class="page-link" href="?{{nextPageQueryString}}" aria-label="Next">
+              <span aria-hidden="true">
+                »
+              </span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  {{/if}}
+  <div class="card-footer text-muted">
+    Footer
+  </div>
+</div>

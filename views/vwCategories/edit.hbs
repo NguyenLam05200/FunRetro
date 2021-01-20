@@ -1,0 +1,59 @@
+{{#section 'title'}}
+Edit category
+{{/section}}
+<div class="card">
+  <div class="card-header">
+    <h4>
+      Edit category
+    </h4>
+  </div>
+  <div class="card-body">
+    <form method="POST">
+      <div class="form-group">
+        <label for="txtCatID">
+          _id
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="txtCatID"
+          name="_id"
+            readonly
+          value="{{this.category._id}}"  {{!-- cu phap handlebars --}}
+        />
+      </div>
+      <div class="form-group">
+        <label for="txtCatName">
+          Category
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="txtCatName"
+          name="name"
+          autofocus
+          value="{{this.category.name}}"  {{!-- cu phap handlebars --}}
+        />
+      </div>
+      <a 
+        class="btn btn-success"
+        href="javascript:history.back()"
+        role="button"
+        title="Back to List"
+      >
+        <i class="fa fa-backward" aria-hidden="true"></i>
+      </a>
+      <button type="submit" class="btn btn-danger" title="Remove Category" formaction="/admin/categories/del">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+      <button type="submit" class="btn btn-primary" formaction="/admin/categories/update">
+      {{!-- nếu submit k có formaction thì lấy action từ form gốc, nếu có formaction thì nút submit đó chỉ xử lí bằng formaction đó thôi --}}
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Save
+      </button>
+    </form>
+  </div>
+  <div class="card-footer text-muted">
+    Footer
+  </div>
+</div>

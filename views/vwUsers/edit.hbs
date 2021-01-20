@@ -1,0 +1,266 @@
+{{#section 'title'}}
+Edit product
+{{/section}}
+{{#section "js"}}
+<script> $('#customFileMain').on('change', function(){ files = $(this)[0].files; name = ''; for(var i = 0; i < files.length; i++){ name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); } $(".custom-file-label.main").html(name); });
+</script>
+<script> $('#customFileDetails1').on('change', function(){ files = $(this)[0].files; name = ''; for(var i = 0; i < files.length; i++){ name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); } $(".custom-file-label.details1").html(name); });
+</script>
+<script> $('#customFileDetails2').on('change', function(){ files = $(this)[0].files; name = ''; for(var i = 0; i < files.length; i++){ name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); } $(".custom-file-label.details2").html(name); });
+</script>
+<script src="/public/fileUpload.js"></script>
+{{/section}}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Products</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="./byCat/All">Products</a></li>
+              {{!-- <li class="breadcrumb-item active">{{this.catName}}</li> --}}
+              <li class="breadcrumb-item active">edit</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+  <!-- Main content -->
+  <div class="card">
+    <div class="card-header">
+      <h4>
+        Edit Products
+      </h4>
+    </div>
+    <div class="card-body">
+      <form method="POST" onsubmit="return Validate(this);" enctype="multipart/form-data" >
+        <div class="form-group">
+          <label for="txtCatID">
+            _id
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="txtCatID"
+            name="_id"
+            readonly
+            value="{{this.product._id}}"
+            {{! cu phap handlebars }}
+          />
+        </div>
+        <div class="form-group">
+          <label for="txtCatName">
+            Product
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="txtCatName"
+            name="imgName"
+            autofocus
+            required
+            value="{{this.product.imgName}}"
+            {{! cu phap handlebars }}
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">
+            Category
+          </label>
+          <select
+            class="form-control"
+            id="exampleFormControlSelect1"
+            name="selectCat"
+          >
+            {{#each categories}}
+              <option value="{{name}}" {{#if isSelected}}selected{{/if}}>
+                {{name}}
+              </option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="txtCatName">
+            Price
+          </label>
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              $
+            </span>
+            <span class="input-group-text">
+              0.00
+            </span>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              class="form-control"
+              id="txtCatName"
+              name="price"
+              required
+              value="{{this.product.price}}"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="txtCatName">
+            Sale-off Price
+          </label>
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              $
+            </span>
+            <span class="input-group-text">
+              0.00
+            </span>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              class="form-control"
+              id="txtCatName"
+              name="salePrice"
+              required
+              value="{{this.product.salePrice}}"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group-prepend">
+            <label for="txtCatName">
+              Image of product
+            </label>
+          </div>
+          <div class="input-group-prepend">
+            <label for="txtCatName">
+              Main
+            </label>
+          </div>
+          <img
+            src="{{process.env.PRODUCTS_IMAGE_DIR}}/{{this.product._id}}/main.{{this.product.imgDir}}"
+            alt="{{this.product.imgName}}"
+            title="{{this.product.imgName}}"
+            height=20% width=30%
+            {{!-- class="card-img-top" --}}
+          />
+          <div class="custom-file">
+            <input
+              type="file"
+              class="custom-file-input"
+              id="customFileMain"
+              lang="en"
+              name="main"
+            />
+            <label class="custom-file-label main" for="customFileMain">
+              main.{{this.product.imgDir}}
+            </label>
+          </div>
+          <div class="input-group-prepend">
+            <label for="txtCatName">
+              Details 1
+            </label>
+          </div>
+          <img
+            src="{{process.env.PRODUCTS_IMAGE_DIR}}/{{this.product._id}}/details1.{{this.product.imgDir}}"
+            alt="{{this.product.imgName}}"
+            title="{{this.product.imgName}}"
+            height=20% width=30%
+            {{!-- class="card-img-top" --}}
+          />
+          <div class="custom-file">
+            <input
+              type="file"
+              class="custom-file-input"
+              id="customFileDetails1"
+              lang="en"
+              name="details1"
+            />
+            <label class="custom-file-label details1" for="customFileDetails1">
+              details1.{{this.product.imgDir}}
+            </label>
+          </div>
+          <div class="input-group-prepend">
+            <label for="txtCatName">
+              Details 2
+            </label>
+          </div>
+          <img
+            src="{{process.env.PRODUCTS_IMAGE_DIR}}/{{this.product._id}}/details2.{{this.product.imgDir}}"
+            alt="{{this.product.imgName}}"
+            title="{{this.product.imgName}}"
+            height=20% width=30%
+            {{!-- class="card-img-top" --}}
+          />
+          <div class="custom-file">
+            <input
+              type="file"
+              class="custom-file-input"
+              id="customFileDetails2"
+              lang="en"
+              name="details2"
+            />
+            <label class="custom-file-label details2" for="customFileDetails2">
+              details2.{{this.product.imgDir}}
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">
+            Design
+          </label>
+          <textarea
+            class="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+            name="design"
+          >{{this.product.design}}</textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">
+            Details
+          </label>
+          <textarea
+            class="form-control"
+            id="exampleFormControlTextarea1"
+            rows="5"
+            name="details"
+          >{{this.product.details}}</textarea>
+        </div>
+        <a
+          class="btn btn-success"
+          {{!-- href="/admin/products/byCat/All" --}}
+          href="javascript:history.back()"
+          role="button"
+          title="Back to List"
+        >
+          <i class="fa fa-backward" aria-hidden="true"></i>
+        </a>
+        <button
+          type="submit"
+          class="btn btn-danger"
+          title="Remove product"
+          formaction="/admin/products/del"
+        >
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          formaction="/admin/products/update"
+        >
+          {{! nếu submit k có formaction thì lấy action từ form gốc, nếu có formaction thì nút submit đó chỉ xử lí bằng formaction đó thôi }}
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Save
+        </button>
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+      Footer
+    </div>
+  </div>
+</div>

@@ -1,0 +1,218 @@
+{{#section "title"}}
+  Add product
+{{/section}}
+{{#section "js"}}
+<script> $('#customFileMain').on('change', function(){ files = $(this)[0].files; name = ''; for(var i = 0; i < files.length; i++){ name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); } $(".custom-file-label.main").html(name); });
+</script>
+<script> $('#customFileDetails1').on('change', function(){ files = $(this)[0].files; name = ''; for(var i = 0; i < files.length; i++){ name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); } $(".custom-file-label.details1").html(name); });
+</script>
+<script> $('#customFileDetails2').on('change', function(){ files = $(this)[0].files; name = ''; for(var i = 0; i < files.length; i++){ name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); } $(".custom-file-label.details2").html(name); });
+</script>
+<script src="/public/fileUpload.js"></script>
+{{/section}}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Products</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="./byCat/All">Products</a></li>
+            <li class="breadcrumb-item active">Add</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  
+  <div class="card">
+    <div class="card-header">
+      <h4>
+        New Product
+      </h4>
+    </div>
+    <div class="card-body">
+      <form method="POST" action="" enctype="multipart/form-data" onsubmit="return Validate(this);">
+        <div class="form-group">
+          <label for="txtProName">
+            Name
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="txtProName"
+            name="imgName"
+            placeholder="Name of new product"
+            required
+            autofocus
+          />
+
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">
+            Select category
+          </label>
+          <select
+            class="form-control"
+            id="exampleFormControlSelect1"
+            name="selectCat"
+          >
+            {{#each categories}}
+              <option value="{{name}}" {{#if isSelected}}selected{{/if}}>
+                {{name}}
+              </option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="txtCatName">
+            Price
+          </label>
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              $
+            </span>
+            <span class="input-group-text">
+              0.00
+            </span>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              class="form-control"
+              id="txtCatName"
+              name="price"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="txtCatName">
+            Sale-off Price
+          </label>
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              $
+            </span>
+            <span class="input-group-text">
+              0.00
+            </span>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              class="form-control"
+              id="txtCatName"
+              name="salePrice"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group-prepend">
+            <label for="txtCatName">
+              Image of product
+            </label>
+          </div>
+          <div class="input-group-prepend">
+            <label for="txtCatName">
+              Main image
+            </label>
+          </div>
+          <div class="custom-file">
+            <input
+              type="file"
+              class="custom-file-input"
+              id="customFileMain"
+              lang="en"
+              name="main"
+                required
+            />
+            <label class="custom-file-label main" for="customFileMain">
+              Choose file
+            </label>
+          </div>
+          <div class="input-group-prepend">
+            <label for="txtCatName">
+              Details 1 image
+            </label>
+          </div>
+          <div class="custom-file">
+            <input
+              type="file"
+              class="custom-file-input"
+              id="customFileDetails1"
+              lang="en"
+              name="details1"
+                required
+            />
+            <label class="custom-file-label details1" for="customFileDetails1">
+              Choose file
+            </label>
+          </div>
+          <div class="input-group-prepend">
+            <label for="txtCatName">
+              Details 2 image
+            </label>
+          </div>
+          <div class="custom-file">
+            <input
+              type="file"
+              class="custom-file-input"
+              id="customFileDetails2"
+              lang="en"
+              name="details2"
+                required
+            />
+            <label class="custom-file-label details2" for="customFileDetails2">
+              Choose file
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">
+            Design
+          </label>
+          <textarea
+            class="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+            name="design"
+              required
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">
+            Details
+          </label>
+          <textarea
+            class="form-control"
+            id="exampleFormControlTextarea1"
+            rows="5"
+            name="details"
+              required
+          ></textarea>
+        </div>
+        <a
+          class="btn btn-success"
+          href="javascript:history.back()"
+          role="button"
+          title="Back to List"
+        >
+          <i class="fa fa-backward" aria-hidden="true"></i>
+        </a>
+        <button type="submit" class="btn btn-primary" value="Add new">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Add
+        </button>
+        {{! <input type="submit" value="Add new"> }}
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+      Footer
+    </div>
+  </div>
+</div>

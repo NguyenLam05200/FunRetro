@@ -1,0 +1,226 @@
+{{#section "title"}}
+  Profile
+{{/section}}
+{{#section "css"}}
+  <link rel="stylesheet" href="/public/styleProfile.css" />
+{{/section}}
+{{#section "js"}}
+<script> $('#customFileMain').on('change', function(){ files = $(this)[0].files; name = ''; for(var i = 0; i < files.length; i++){ name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); } $(".custom-file-label.main").html(name); });
+</script>
+<script> $('#customFileDetails1').on('change', function(){ files = $(this)[0].files; name = ''; for(var i = 0; i < files.length; i++){ name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); } $(".custom-file-label.details1").html(name); });
+</script>
+<script> $('#customFileDetails2').on('change', function(){ files = $(this)[0].files; name = ''; for(var i = 0; i < files.length; i++){ name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); } $(".custom-file-label.details2").html(name); });
+</script>
+<script src="/public/fileUpload.js"></script>
+<script>
+	function previewFile(input) {
+        var file = $("input[type=file]").get(0).files[0];
+        var pattern = /image-*/;
+
+        if (file && file.type.match(pattern)) {
+            var reader = new FileReader();
+
+            reader.onload = function () {
+                $("#previewImg").attr("src", reader.result);
+            }
+
+            reader.readAsDataURL(file);
+            return true;
+        } else {
+            alert('Only allowed to upload image!!!');
+            return false;
+        }
+
+    }
+</script>
+{{/section}}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">
+            Profile of user
+          </h1>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item">
+              <a href="/">
+                Home
+              </a>
+            </li>
+            <li class="breadcrumb-item active">
+              Profile
+            </li>
+          </ol>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <section class="content">
+    <div class="container">
+		<form
+          method="POST"
+          onsubmit="return Validate(this);"
+          enctype="multipart/form-data"
+        >
+			<div class="row gutters">
+				<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+					<div class="card h-100">
+					<div class="card-body">
+						<div class="account-settings">
+						<div class="user-profile">
+							<div class="user-avatar">
+							<img
+								{{#if lcAuthUser.avatar}}
+								src="/public/images/admin/profile/{{lcAuthUser._id}}.{{lcAuthUser.avatar}}"
+								{{else}}
+								src="/public/images/default.png"
+								{{/if}}
+								alt="Baggage Admin"
+								id="previewImg"
+							/>
+							<label>
+							<input
+								type="file"
+								class="custom-file-input"
+								id="customFileMain"
+								lang="en"
+								name="imgAvatar"
+								onchange='return previewFile(this);'
+							/>
+							<span>Upload avatar&hellip;</span>
+							</label>
+							</div>
+							<h5 class="user-name">
+							{{lcAuthUser.username}}
+							</h5>
+							<h6 class="user-email">
+							{{lcAuthUser.email}}
+							</h6>
+						</div>
+						<div class="about">
+							<h5 class="mb-2 text-primary">
+							About
+							</h5>
+							<p>
+							I'm
+							{{lcAuthUser.username}}
+							. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.
+							</p>
+						</div>
+						</div>
+					</div>
+					</div>
+				</div>
+				<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+					<div class="card h-100">
+					<div class="card-body">
+						<div class="row gutters">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<h6 class="mb-3 text-primary">
+							Personal Details
+							</h6>
+						</div>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+							<div class="form-group">
+							<label for="fullName">
+								Full Name
+							</label>
+							<input
+								type="text"
+								class="form-control"
+								id="fullName"
+								placeholder="Enter full name"
+								value="{{lcAuthUser.username}}"
+									name="username"
+							/>
+							</div>
+						</div>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+							<div class="form-group">
+							<label for="eMail">
+								Email
+							</label>
+							<input
+								type="email"
+								class="form-control"
+								id="eMail"
+								placeholder="Enter email ID"
+								value="{{lcAuthUser.email}}"
+									name="email"
+							/>
+							</div>
+						</div>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+							<div class="form-group">
+							<label for="phone">
+								Phone
+							</label>
+							<input
+								type="text"
+								class="form-control"
+								id="phone"
+								placeholder="Enter phone number"
+								value="{{lcAuthUser.phone}}"
+									name="phone"
+							/>
+							</div>
+						</div>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+							<div class="form-group">
+							<label for="website">
+								Date of birth
+							</label>
+							<input
+								type="text"
+								class="form-control"
+								id="website"
+								placeholder="Website url"
+								value="{{lcAuthUser.dob}}"
+								name="dob"
+							/>
+							</div>
+						</div>
+						</div>
+						
+						<div class="row gutters">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<div class="text-right">
+							<a
+								class="btn btn-success"
+								href="javascript:history.back()"
+								role="button"
+								title="Back to List"
+								{{! href="/admin/products/byCat/All" }}
+							>
+								<i aria-hidden="true">Cancel</i>
+							</a>
+							<button
+							type="submit"
+							class="btn btn-primary"
+							formaction="/admin/account/updateProfile"
+							>
+							{{! nếu submit k có formaction thì lấy action từ form gốc, nếu có formaction thì nút submit đó chỉ xử lí bằng formaction đó thôi }}
+							<i class="fa fa-check" aria-hidden="true"></i>
+							Update
+							</button>
+							</div>
+						</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+    </div>
+  </section>
+</div>

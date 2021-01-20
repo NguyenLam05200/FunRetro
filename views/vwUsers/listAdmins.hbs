@@ -1,0 +1,174 @@
+{{#section 'title'}}
+Users management
+{{/section}}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Other Admins</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="">Other Admins</a></li>
+            <li class="breadcrumb-item active">List</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <!-- Main content -->
+  <section class="content">
+    <div class="card card-solid">
+      <div class="card-body">
+        <div class="row h-100 justify-content-center">
+        {{#if this.empty}}
+          <div class="card-body">
+            <p class="card-text">
+              Không có dữ liệu.
+            </p>
+          </div>
+        {{else}}
+            <div class="row">
+            <div class="col-12">
+              <div class="card">
+                                  <form method="POST">
+
+                <div class="card-header">
+                  <h3 class="card-title">Responsive Hover Table</h3>
+                    <div class="card-tools" method="POST">
+                      <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-default" formaction="/admin/management/search">
+                            <i class="fas fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                                  </form>
+
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-hover text-nowrap">
+                    <thead>
+                      <tr>
+                        <th aria-readonly="true">ID</th>
+                        <th>Admin's Name</th>
+                        <th>Email</th>
+                        <th>Position</th>
+                        <th>Handles</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {{#each this.users}}
+                      <tr>
+                        <td>{{_id}}</td>
+                        <td>{{username}}</td>
+                        <td>{{email}}</td>
+                        <td><span class="tag tag-success">
+                          {{position}}
+                        </span></td>
+                        <td>
+                          <a
+                            class="btn btn-sm btn-success"
+                            href="/admin/management/otherAdmins?id={{this._id}}"
+                            role="button "
+                          >
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            Details
+                          </a>
+                          {{#if unBlock}}
+                            <a
+                              name=""
+                              id=""
+                              {{#if canBlock}}
+                              class="btn btn-warning btn-sm"
+                              {{else}}
+                              class="btn btn-warning btn-sm disabled"
+                              {{/if}}
+                              href="/admin/management/unblockAdmin?id={{this._id}}"
+                              role="button"
+                              title="Edit Product"
+                            >
+                              <i class="fa fa-pencil" aria-hidden="true">
+                                Unblock
+                              </i>
+                            </a> 
+                          {{else}}
+                            <a
+                              name=""
+                              id=""
+                              {{#if canBlock}}
+                              class="btn btn-warning btn-sm"
+                              {{else}}
+                              class="btn btn-warning btn-sm disabled"
+                              {{/if}}
+                              href="/admin/management/blockAdmin?id={{this._id}}"
+                              role="button"
+                              title="Edit Product"
+                            >
+                              <i class="fa fa-pencil" aria-hidden="true">
+                                Block
+                              </i>
+                            </a> 
+                          {{/if}}
+                           
+                        </td>
+                      </tr>
+                    {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
+        {{/if}}
+        </div>
+      </div>
+      <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+          <li class="page-item {{#unless can_go_prev}}disabled{{/unless}}">
+            <a class="page-link" href="?page={{prev_value}}" aria-label="Previous">
+              <span aria-hidden="true">
+                «
+              </span>
+            </a>
+          </li>
+          {{#each this.page_items }}
+          {{#if isActive}}
+            <li class="page-item active" aria-current="page">
+            <span class="page-link">
+              {{value}}
+              <span class="sr-only">(current)</span>
+            </span>
+          </li>
+          {{else}}
+            <li class="page-item {{#if isDisabled}}disabled{{/if}}">
+            <a class="page-link" href="?page={{value}}">
+              {{value}}
+            </a>
+          </li>
+          {{/if}}
+          {{/each}}
+          
+          
+          <li class="page-item {{#unless can_go_next}}disabled{{/unless}}">
+            <a class="page-link" href="?page={{next_value}}" aria-label="Next">
+              <span aria-hidden="true">
+                »
+              </span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
