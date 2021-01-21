@@ -1,7 +1,7 @@
 module.exports = function restrict(req, res, next) {
     
     if (!req.user) {
-        return res.redirect(`/account/login?retUrl=${req.originalUrl}`);
+        return res.redirect(`/admin/account/login?retUrl=${req.originalUrl}`);
         //return res.redirect(`http://localhost:3000/home`);
 
         // chú ý dấu ``
@@ -9,7 +9,7 @@ module.exports = function restrict(req, res, next) {
         //nếu k (xxx > login > post login thì đc trước đó là login)
     }
     if(!req.user.isVerified){
-        return res.redirect(`/account/login?notification=1`);
+        return res.redirect(`/admin/account/login?notification=1`);
     }
     if(req.user.isAdmin){
         if(!(req.user.permission >= 1) ){

@@ -92,7 +92,7 @@ app.use('/admin/products',restrict, require('./routes/product.route'));
 
 
 // Phần khách hàng:
-const restrictUser = require('./middlewares/auth.mdw')
+const restrictUser = require('./middlewares/authUser.mdw')
 // đăng kí, đăng nhập, profile của Người dùng
 app.use('/user/account', require('./routes/user/account.route'));
 app.use('/user/dashboard', restrictUser, require('./routes/user/dashboard.route'));

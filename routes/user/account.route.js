@@ -13,11 +13,12 @@ const router = express.Router();
 
 router.get('/login', async function (req, res) {
     let err = "";
-    if (req.query.err === "1") {
-        err = 'Invalid username or password.Please try again!';
+    let notification = "";
+
+    if (req.query.err === "9") {
+        notification = 'Invalid username or password.Please try again!';
     }
 
-    let notification = "";
     if (req.query.notification === "1") {
         notification = 'Your account is not verified!';
         err = "Your account is not verified!";
@@ -37,13 +38,13 @@ router.get('/login', async function (req, res) {
 });
 
 //session
-const restrict = require('../../middlewares/auth.mdw')
+const restrict = require('../../middlewares/authUser.mdw')
 //session
 
 //use npm passport
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/user/login?err=1',
+    failureRedirect: '/user/account/login?err=9',
     failureFlash: false
 }))
 router.post('/logout', function (req, res) {

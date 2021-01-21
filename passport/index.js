@@ -32,10 +32,14 @@ passport.deserializeUser(function (id, done) {
     userService.findOneByEmail(id).then((user) => {
         if (user == null) {
             adminService.findOneByEmail(id).then((admin) => {
-                delete admin.password_hash;
-                admin.isAdmin = true;
-                done(null, admin);
-                return;
+                if(admin!=null){
+                    delete admin.password_hash;
+                    admin.isAdmin = true;
+                    done(null, admin);
+                    return;
+                } else {
+                    return;
+                }
             })
         } else {
             adminService.findOneByEmail(id).then((admin) => {

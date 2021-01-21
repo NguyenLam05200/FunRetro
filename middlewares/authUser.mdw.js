@@ -1,4 +1,4 @@
-module.exports = function restrict(req, res, next) {
+module.exports = function restrictUser(req, res, next) {
     
     if (!req.user) {
         return res.redirect(`/user/account/login?retUrl=${req.originalUrl}`);

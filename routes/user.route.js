@@ -21,6 +21,7 @@ router.get('/users', async function (req, res) {
     if (!(idQuery == null)) {
         const userDetails = await userModel.getOneUser(idQuery);
         res.render('vwUsers/profileUser', {
+            layout: "mainAdmin",
             userDetails,
             imgDirParents: process.env.PROFILES_IMAGE_DIR_FIXED
         });
@@ -103,6 +104,7 @@ router.get('/users', async function (req, res) {
         // const list = await userModel.pageByCat(req.params.catName, limit, page);
         
         res.render('vwUsers/listUsers', {
+            layout: "mainAdmin",
             imgDirParents: process.env.userS_IMAGE_DIR_FIXED,
             catName,
             users: list,
@@ -133,6 +135,7 @@ router.get('/otherAdmins', async function (req, res) {
             else
                 userDetails.canBlock = false;
         res.render('vwUsers/profile', {
+            layout: "mainAdmin",
             userDetails,
             imgDirParents: process.env.PROFILES_IMAGE_DIR_FIXED
         });
@@ -241,6 +244,7 @@ router.get('/otherAdmins', async function (req, res) {
         //console.log("-----------------------------------\n");
         //console.log(list);
         res.render('vwUsers/listAdmins', {
+            layout: "mainAdmin",
             imgDirParents: process.env.userS_IMAGE_DIR_FIXED,
             catName,
             users: list,
@@ -463,6 +467,7 @@ router.post('/search', async function (req, res) {
         //console.log("-----------------------------------\n");
         //console.log(list);
         res.render('vwUsers/listAdmins', {
+            layout: "mainAdmin",
             imgDirParents: process.env.userS_IMAGE_DIR_FIXED,
             catName,
             users: list,

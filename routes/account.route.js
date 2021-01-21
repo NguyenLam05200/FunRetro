@@ -13,11 +13,12 @@ const router = express.Router();
 
 router.get('/login', async function (req, res) {
     let err = "";
+    let notification = "";
+
     if (req.query.err === "9") {
         notification = 'Invalid username or password. Please try again!';
     }
 
-    let notification = "";
     if (req.query.notification === "1") {
         notification = 'Your account is not verified!';
         err = "Your account is not verified!";
