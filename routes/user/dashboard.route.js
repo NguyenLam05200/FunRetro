@@ -10,6 +10,7 @@ const {
     Schema
 } = require('mongoose');
 const db = require('../../utils/db');
+const { ObjectId } = require('../../models/user/catColumn.model');
 
 const router = express.Router();
 
@@ -42,7 +43,7 @@ router.get('/', async function (req, res) {
     // ])
 
     // nav paging, handle over page total
-    const nPages = Math.ceil(total / config.pagination.limit);
+    const nPages = Math.ceil(total / 3);
     const page_items = [];
     const disabledItem = {
         value: '...',
@@ -113,7 +114,7 @@ router.get('/', async function (req, res) {
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 router.get('/byCat/:catName', async function (req, res) {
-    const limit = config.pagination.limit;
+    const limit = 3;
     const page = +req.query.page || 1;
     if (page < 0) page = 1;
 
@@ -138,7 +139,7 @@ router.get('/byCat/:catName', async function (req, res) {
     // ])
 
     // nav paging, handle over page total
-    const nPages = Math.ceil(total / config.pagination.limit);
+    const nPages = Math.ceil(total / 3);
     const page_items = [];
     const disabledItem = {
         value: '...',
@@ -249,12 +250,27 @@ router.post('/add', async (req, res) => {
 
 router.get('/details', async function (req, res) {
     //const list = await categoryModel.getAll();
-    const id = req.query.id || -1;
-    fileImageName = id;
-    const product = await productModel.getOne(id);
-    res.render('vwProducts/details', {
-        product
-    });
+    const q = req.query.id || -1;
+    const auth = req.user._id;
+    const filter = {};
+    if (q)
+        filter._id = new dashboardModel.ObjectId(q);
+    if (auth)
+        filter.createdBy = auth;
+    //console.log(filter);
+    const board = await dashboardModel.getOneByFilter(filter);
+    const curTemplate = board.template;
+    var r = [];
+    for(var i = 0; i< curTemplate.length; i++){
+        const one = await categoryModel.getOne(curTemplate[i]);
+        r.push(one);
+    }
+    
+    res.render('user/vwDashboards/details', {
+        board: board,
+        template: r,
+        empty: r.length === 0
+   });
 });
 
 router.get('/edit', async function (req, res) {

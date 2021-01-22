@@ -64,6 +64,15 @@ module.exports = {
         }
         return list;
     },
+    getOneByFilter: async (filter) => {
+        const userCollection = db().collection(nameCollection);
+        const one = await userCollection.findOne(filter);
+        //console.log(one);
+        if (!one) {
+            return null;
+        }
+        return one;
+    },
     page: async (filter,limit, page) => {
         const proCollection = db().collection(nameCollection);
         const list = await proCollection.find(filter).skip((page - 1) * limit)

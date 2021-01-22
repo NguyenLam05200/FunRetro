@@ -1,5 +1,5 @@
 {{#section "title"}}
-  Dashboard
+  Board
 {{/section}}
 
 <div id="about" class="about_section layout_padding">
@@ -13,8 +13,9 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboards</li>
+              <li class="breadcrumb-item"><a href="/user/dashboard/">Home</a></li>
+              <li class="breadcrumb-item">Dashboards</li>
+              <li class="breadcrumb-item active">Details board</li>
             </ol>
           </div>
         </div>
@@ -25,10 +26,18 @@
     <section class="content">
       <div class="container-fluid">
         <div class="card-header d-flex justify-content-between">
-          
-          <a class="btn btn-outline-success" href="/user/dashboard/add?catName={{catName}}" role="button">
+          <div class="card-body">
+            <h3 class="card-title">
+              <i class="fa fa-address-card" aria-hidden="true"></i>
+
+              <b> {{this.board.name}}</b>
+            </h3>
+              
+          </div>
+          <a class="btn btn-outline-success" href="/user/dashboard/details/add?catName={{catName}}&&id={{this.board._id}}" role="button">
+          <br />
             <i class="fa fa-plus" aria-hidden="true"></i>
-            Add board
+            <center><b>Add Column</b></center>
           </a>
         </div>
         <!-- Small boxes (Stat box) -->
@@ -40,11 +49,10 @@
             </p>
           </div>
         {{else}}
-          {{#each this.products}}
+          {{#each this.template}}
             <div class="col-md-4 mb-4">
-              <a href="/user/dashboard/details?id={{this._id}}">
               <!-- Line chart -->
-              <div class="card card-info ">
+              <div class="card card-success ">
                 <div class="card-header">
                   <h2 class="card-title">
                     <i class="far fa-chart-bar"></i>
@@ -61,20 +69,23 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <div id="line-chart" style="height: 200px;" class="justify-content-center">
-                    <center><b>~ Template ~</b></center>
-                    <br />
-                    {{#each temp}}
-                      <center>{{name}}</center>
-                    {{/each}}
-                    <br />
-                    <center><b>~ Click to view board. ~</b></center>
+                  {{#each card}}
+                    <div id="line-chart" style="height: 40px;" class="justify-content-center">
+                      <br />
+                        <center>{{name}}</center>
+                      <br />
+                    </div>
+                  {{/each}}
+                  <div id="line-chart" style="height: 40px;" class="justify-content-center">
+                    <a class="btn btn-outline-primary" href="/user/dashboard/details/addCard?catColumn={{this.template._id}}&&board={{../this.board._id}}" role="button">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                      Add card
+                    </a>
                   </div>
                 </div>
                 <!-- /.card-body-->
               </div>
               <!-- /.card -->
-              </a>
             </div>
           {{/each}}
         {{/if}}
