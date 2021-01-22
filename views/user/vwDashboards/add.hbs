@@ -1,0 +1,93 @@
+{{#section "title"}}
+  Add product
+{{/section}}
+{{#section "js"}}
+<script> $('#customFileMain').on('change', function(){ files = $(this)[0].files; name = ''; for(var i = 0; i < files.length; i++){ name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); } $(".custom-file-label.main").html(name); });
+</script>
+<script> $('#customFileDetails1').on('change', function(){ files = $(this)[0].files; name = ''; for(var i = 0; i < files.length; i++){ name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); } $(".custom-file-label.details1").html(name); });
+</script>
+<script> $('#customFileDetails2').on('change', function(){ files = $(this)[0].files; name = ''; for(var i = 0; i < files.length; i++){ name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); } $(".custom-file-label.details2").html(name); });
+</script>
+<script src="/public/fileUpload.js"></script>
+{{/section}}
+<div id="about" class="about_section layout_padding">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h4>
+          New Board
+        </h4>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="" onsubmit="return Validate(this);">
+          <div class="form-group">
+            <label for="txtProName">
+              Name
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="txtProName"
+              name="name"
+              placeholder="Name of new board"
+              required
+              autofocus
+            />
+
+          </div>
+          <div class="form-group">
+            <label for="txtCatName">
+              Max votes per user(whole board)
+            </label>
+            <div class="input-group-prepend">
+              <input
+                type="number"
+                step="1"
+                min="0"
+                class="form-control"
+                id="txtCatName"
+                name="maxVote"
+                value="6"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">
+              Template
+            </label>
+            <select
+              class="form-control"
+              id="exampleFormControlSelect1"
+              name="selectTemplate"
+            >
+              <option value="none" selected disabled hidden>Select an template</option>
+              {{#each categories}}
+                <option value="{{_id}}" {{#if isSelected}}selected{{/if}}>
+                  {{name}}
+                </option>
+              {{/each}}
+            </select>
+          </div>
+
+          <a
+            class="btn btn-success"
+            href="javascript:history.back()"
+            role="button"
+            title="Back to List"
+          >
+            <i class="fa fa-backward" aria-hidden="true"></i>
+          </a>
+          <button type="submit" class="btn btn-primary" value="Add new">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            Create
+          </button>
+          {{! <input type="submit" value="Add new"> }}
+        </form>
+      </div>
+      <div class="card-footer text-muted">
+        Footer
+      </div>
+    </div>
+  </div>
+</div>
